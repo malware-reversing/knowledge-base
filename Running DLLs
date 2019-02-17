@@ -1,0 +1,18 @@
+This one has been explained a lot over the internet, but anyway sometimes we need to debug DLLs instead of EXEs. We can't just dump it in the debugger because we need to run on a particular export function name rather than the entry point.
+
+# Make the DLL an EXE
+Using a PE Viewer, we can change the entry point to become the address of the exported function, and change the executable type from DLL to become EXE. This doesn't always work though.
+
+# Run using rundll32.exe in IDA
+Run as administrator (because it needs access system directory) ida.exe if your DLL is 32 bit, and ida64.exe is 64 bit.
+If ida.exe, open %systemroot%\SysWOW64\rundll32.exe, and if ida64.exe open %systemroot%\System32\rundll32.exe
+Debugger options -> Suspend on library load/unload
+Process options -> Defaults for application/input/directory, and then set parameters as: "<path-to-dll>", export
+Note the quotes (required if you have spaces in the filepath) and the space in between the filepath and the export function name (always required)
+Now just run and keep running it (F9) until you see the DLL loaded
+In the Modules tab on the top right, double click on the newly loaded DLL
+Now that the DLL you want is loaded into memory, the previous double click will bring you to the list of entry export functions in that module, then set your breakpoint there
+Continue running the module until your breakpoint is it
+
+# Run using other debuggers
+Some other debuggers like OllyDbg have their own DLL loaders which make running DLLs easier, but I won't touch on those.
