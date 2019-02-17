@@ -1,0 +1,15 @@
+146a61205c3eebf248ba2e808246315fab5fe1d1c57759bf2475ee7be6c0dc2d - DLL memory dump of Elise malware
+
+Hex Editor
+Offset 00010EE0: "\0\0Evil.dll\0EvilEntry"
+
+Sometimes we have a DLL, either the original DLL or an unpacked DLL in memory. The filename we have usually does not matter, but we can actually retrieve the original DLL name created by the author and the original function name via the PE exports section.
+
+# Using CFF Explorer
+Export Directory > Click on Function Name EvilEntry > See Name Ordinal = 0x00010ee0
+
+# Using PE Bear
+Exports > Name = Evil.dll
+
+# Using PPEE
+DIRECTORY_ENTRY_EXPORT > Dll Name = Evil.dll
