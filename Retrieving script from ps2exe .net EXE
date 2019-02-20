@@ -1,0 +1,21 @@
+xxx - MuddyWater powemuddy samples (unreleased hashes)
+
+.NET EXEs which we see are actually powershell scripts compiled using ps2exe tool (.NET functions ik.Powershell namespace, functions: ConsoleInfo / PS2EXE / PS2EXEApp / PS2EXEHost / PS2EXEHostRawUI / PS2EXEHostUI.
+The powershell script is actually inside the executable, and encoded with base64.
+What we need to do is find the start and end delimiters for the powershell base64 text.
+
+Start (hex values)
+2A 00 00 15 44 00 45 00 42 00 55 00 47 00 3A 00 20 00 7B 00 30 00 7D 00 00 15 45 00 52 00 52 00 4F 00 52 00 3A 00 20 00 7B 00 30 00 7D 00 00 19 56 00 45 00 52 00 42 00 4F 00 53 00 45 00 3A 00 20 00 7B 00 30 00 7D 00 00 19 57 00 41 00 52 00 4E 00 49 00 4E 00 47 00 3A 00 20 00 7B 00 30 00 7D 00 00 17 50 00 53 00 32 00 45 00 58 00 45 00 5F 00 48 00 6F 00 73 00 74 00 00 05 75 00 69 00 00 0B 2D 00 77 00 61 00 69 00 74 00 01 11 2D 00 65 00 78 00 74 00 72 00 61 00 63 00 74 00 01 03 3A 00 00 80 DD 49 00 66 00 20 00 79 00 6F 00 75 00 20 00 73 00 70 00 65 00 63 00 69 00 66 00 79 00 20 00 74 00 68 00 65 00 20 00 2D 00 65 00 78 00 74 00 72 00 61 00 63 00 74 00 20 00 6F 00 70 00 74 00 69 00 6F 00 6E 00 20 00 79 00 6F 00 75 00 20 00 6E 00 65 00 65 00 64 00 20 00 74 00 6F 00 20 00 61 00 64 00 64 00 20 00 61 00 20 00 66 00 69 00 6C 00 65 00 20 00 66 00 6F 00 72 00 20 00 65 00 78 00 74 00 72 00 61 00 63 00 74 00 69 00 6F 00 6E 00 20 00 69 00 6E 00 20 00 74 00 68 00 69 00 73 00 20 00 77 00 61 00 79 00 0D 00 0A 00 20 00 20 00 20 00 2D 00 65 00 78 00 74 00 72 00 61 00 63 00 74 00 3A 00 22 00 3C 00 66 00 69 00 6C 00 65 00 6E 00 61 00 6D 00 65 00 3E 00 22 00 01 09 2D 00 65 00 6E 00 64 00 01 0D 2D 00 64 00 65 00 62 00 75 00 67 00
+---
+Start (string roughly looks like this):
+*...D.E.B.U.G.:. .{.0.}...E.R.R.O.R.:. .{.0.}...V.E.R.B.O.S.E.:. .{.0.}...W.A.R.N.I.N.G.:. .{.0.}...P.S.2.E.X.E._.H.o.s.t...u.i...-.w.a.i.t...-.e.x.t.r.a.c.t...:..€ÝI.f. .y.o.u. .s.p.e.c.i.f.y. .t.h.e. .-.e.x.t.r.a.c.t. .o.p.t.i.o.n. .y.o.u. .n.e.e.d. .t.o. .a.d.d. .a. .f.i.l.e. .f.o.r. .e.x.t.r.a.c.t.i.o.n. .i.n. .t.h.i.s. .w.a.y..... . . .-.e.x.t.r.a.c.t.:.".<.f.i.l.e.n.a.m.e.>."...-.e.n.d...-.d.e.b.u.g.
+---
+Start - but probably you'll just want to look for the last text, "debug" in unicode hex like below:
+64 00 65 00 62 00 75 00 67 00
+
+End is just when you see two nulls in a row, or what looks like "./^", or hex below:
+00 2F 5E
+
+Just copy the text in between the start and end through a base64 unicode decoder, e.g. CyberChef, and you'll get the original powershell script.
+
+I suspect it will work with other kinds of script2exe kind of files such as py2exe, although in the unpacker Countercept released there seems to be an option for py2exe to protect the script as well.
