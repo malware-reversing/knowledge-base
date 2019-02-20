@@ -1,7 +1,8 @@
 This one has been explained a lot over the internet, but anyway sometimes we need to debug DLLs instead of EXEs. We can't just dump it in the debugger because we need to run on a particular export function name rather than the entry point.
 
 # Make the DLL an EXE
-Using a PE Viewer, we can change the entry point to become the address of the exported function, and change the executable type from DLL to become EXE. This doesn't always work though.
+Using a PE Viewer, we can change the entry point to become the address of the exported function, and change the executable type from DLL to become EXE. This doesn't always work though, if the attacker decides to play some tricks in their malware.
+To me the real advantage of doing this is you can actually save your changes in IDA when debugging. If you are debugging through rundll32, then your .idb is actually for rundll32, not for the malware you are running, and that means you can't save your analysis results properly.
 
 # Run using rundll32.exe in IDA
 Run as administrator (because it needs access system directory) ida.exe if your DLL is 32 bit, and ida64.exe is 64 bit.
