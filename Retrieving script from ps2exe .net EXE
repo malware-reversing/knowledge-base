@@ -1,6 +1,6 @@
 xxx - MuddyWater powemuddy samples (unreleased hashes)
 
-.NET EXEs which we see are actually powershell scripts compiled using ps2exe tool (.NET functions ik.Powershell namespace, functions: ConsoleInfo / PS2EXE / PS2EXEApp / PS2EXEHost / PS2EXEHostRawUI / PS2EXEHostUI.
+.NET EXEs which we see are actually powershell scripts compiled using ps2exe tool (.NET functions ik.Powershell namespace, functions: ConsoleInfo / PS2EXE / PS2EXEApp / PS2EXEHost / PS2EXEHostRawUI / PS2EXEHostUI).
 The powershell script is actually inside the executable, and encoded with base64.
 What we need to do is find the start and end delimiters for the powershell base64 text.
 
