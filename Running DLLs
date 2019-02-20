@@ -8,6 +8,7 @@ Run as administrator (because it needs access system directory) ida.exe if your 
 If ida.exe, open %systemroot%\SysWOW64\rundll32.exe, and if ida64.exe open %systemroot%\System32\rundll32.exe
 Debugger options -> Suspend on library load/unload
 Process options -> Defaults for application/input/directory, and then set parameters as: "<path-to-dll>", export
+Note that the export name seems required in the process options parameter field, even if it is just "DllMain"
 Note the quotes (required if you have spaces in the filepath) and the space in between the filepath and the export function name (always required)
 Now just run and keep running it (F9) until you see the DLL loaded
 In the Modules tab on the top right, double click on the newly loaded DLL
