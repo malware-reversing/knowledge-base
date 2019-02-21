@@ -1,0 +1,15 @@
+In threat intelligence, usually our writings are a mixture of reverse engineering and clustering then drawing conclusions from that.
+But there is a sort of priority in what is used in analysis in my opinion.
+
+An example of an attack
+---
+Top priority: finding the original email file (.EML)
+High priority: finding the malicious document (e.g. .doc)
+Medium priority: finding the malicious executable (e.g. .exe)
+Low priority: finding the dumped malicious executable (e.g. dump of protected original .exe)
+
+Beyond the fact that each higher priority item helps understand the (attempted) attack a bit more, to me the main reason is the sexiness factor and the proof of that is in many threat intel blogs - many times the phishing document is one of the IoCs and you will see a screenshot of it right at the top of the blog.
+
+# Finding the original email file
+Users can forward emails to scan@virustotal.com (https://www.virustotal.com/en/documentation/email-submissions/)
+I always wondered what random security solutions are uploading all the EML files, but I realized at least one way is through the email forwarding.
