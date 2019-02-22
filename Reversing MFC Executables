@@ -1,0 +1,5 @@
+I was attempting to reverse an MFC executable (start > WinMain > AfxWinMain > AfxWinMain, overloaded)
+Strangely, when we look into where the last AfxWinMain calls, it just calls an extern function and can't go forward easily
+So we start debugging till that point, but then that is where we just see ourselves going through a lot of DLL code
+I tried setting breakpoint on the entire .text code section, but the MFC code gets hit very often until it finally goes to the real main function
+So that is possible, but the easier way seems to be just finding xrefs on CreateThread and one of the functions will be the real main. Of course there are other things to look out for but most executables wouldn't have many CreateThread calls anyway.
