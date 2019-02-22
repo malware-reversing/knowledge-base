@@ -3,3 +3,5 @@ Strangely, when we look into where the last AfxWinMain calls, it just calls an e
 So we start debugging till that point, but then that is where we just see ourselves going through a lot of DLL code
 I tried setting breakpoint on the entire .text code section, but the MFC code gets hit very often until it finally goes to the real main function
 So that is possible, but the easier way seems to be just finding xrefs on CreateThread and one of the functions will be the real main. Of course there are other things to look out for but most executables wouldn't have many CreateThread calls anyway.
+
+But regardless, MFC doesn't perform any packing so just analyzing statically can be done in a normal fashion as well, just that we will have to kind of guess where the actual main is by going up the xrefs chain.
