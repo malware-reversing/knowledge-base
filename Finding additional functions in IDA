@@ -1,0 +1,7 @@
+*Need to find a good sample which doesn't have functions detected*
+
+In ASM, most functions have standard prologues and epilogues if the program is compiled using a compiler. IDA usually detects these functions.
+But for some reason (haven't figured out exactly yet), sometimes IDA does not detect all the functions.
+When that happens, one easy way to get a good number of undetected functions is to simply search for the epilogue that the compiler uses, then create the function after finding it ("P" is the shortcut).
+Usually, I don't bother with the epilogue and only search for something like "55 8b ec" (first 3 bytes) and make all the code into functions.
+So far, I haven't faced any code which wasn't actually functions yet so this might make for a useful IDA script.
