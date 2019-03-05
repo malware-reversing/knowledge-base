@@ -1,0 +1,18 @@
+MuddyWater
+
+ASDFAPDJSJHFGQ24.doc - 41EE0AB77B474B0C84A1C25591029533F058E4454D9F83BA30159CC6309C65D1
+png.dll - 0acd10b14d38a4ac469819dfa9070106e7289ecf7360e248b7f10f868c2f373d
+WindowsUpdate.txt - 5594897046847CDC0AF9FEB5D95D9A8033340E86A3D5A4BBD8A0B42039193F3D
+
+Doc file drops DLL
+DLL drops WindowsUpdate.txt and executes the powershell inside WindowsUpdate.txt
+
+MuddyWater group obfuscates their powershell over and over again all over the place, so it is good practice for deobfuscating powershell.
+But actually, powershell is relatively easy to deobfuscate most of the time. If it is obfuscated, a lot of the time it is executing the obfuscated code using something like IEX command.
+Just format the powershell code nicely (new lines!), and open the script up in Windows PowerShell ISE, then set breakpoints and run it.
+At any point, the variable can be dumped while debugging by typing the variable name in the console, e.g. $x.
+So especially when you see something like "$x | IEX;", you will want to run the powershell to that line and type "$x" to see the dumped deobfuscated powershell script.
+
+WindowsUpdate.txt = sample with $thardcore variable name
+Dump and get a script with "iwemnbxhwetrvgdsqa | IEX;"
+Dump again and get the final script which has functions such as myinfo(), DDownloadFile(), and so on.
