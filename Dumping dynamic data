@@ -1,0 +1,2 @@
+While debugging, you might come across unpacked/decompressed buffers and want to dump them for later use.
+While you can write IDA scripts to do that, the simplest method can be to go to hex view and simply highlight the data to be saved and right click -> save to file.
