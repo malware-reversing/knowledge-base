@@ -1,0 +1,8 @@
+There are a couple of filetypes which can be EXEs but are actually archive types (in fact you can open them as archive in 7z).
+These EXEs can contain multiple files inside and the filetype simply automatically runs them.
+One such filetype is 7zipsfx.
+
+The file it runs automatically is in the string below:
+RunProgram="hidcon:<filename.ext> mvd"
+
+So even though we cannot really write proper YARA rules for the file (since it is compressed), if the attacker uses certain "interesting" filenames, we can write YARA rules to detect that string.
