@@ -1,0 +1,13 @@
+0182f92d0c78df8a78b7359d3132464ab45213568e19f7f1941107a3a436cf83
+
+Open Office
+Format -> Sheet -> Show
+
+Similar actions can be taken in Excel.
+
+This will allow hidden sheets to be shown, which can contain Excel 4.0 macros/commands. TA505 threat group uses such macros.
+
+Practically no security companies detect this automatically, but once you understand the trick in manual analysis it's really easy.
+The hidden flag can also be seen/edited in OffVis, but it takes a little bit of effort to find and since I'm doing manual analysis there is no need to do it.
+
+TI360 did a good job in explaining parts of how Excel 4.0 macros (an outdated technology which nobody understands) works.
