@@ -1,0 +1,7 @@
+There are a few ways to use remote templates within a document file.
+The idea is that within a document, these templates can reach out to external resources.
+So for example, once the user enables content (not even needing to enable macros), it can remotely access files (user agent string exposed), macros, or if the remote server is written in a UNC path style (e.g. \\192.168.1.1\xxx) then it can even be treated as an SMB server and Windows username and hashed password will be sent over.
+
+Example: c63f1d364b9fa2c1023ce5a1b5fed12e1eba780c64276811c4b47743dfcbadbd
+Open in an archive manager (since it is .DOCX which is actually an archive file), find <file.docx>\word\_rels\settings.xml.rels\
+We can see a call to a malicious template (corplink dot com dot pk / * / 16433.jpg).
