@@ -1,0 +1,9 @@
+When we have exploit shellcode inside places like RTF or HTML, we can sometimes have a tool to extract the sub-files (e.g. using rtfobj.exe), but this is not always the case.
+If we can't extract it automatically, what we want to do is to recognize where the shellcode is - this is usually in ascii hex (e.g. if the attacker wants to use a NOP which is 0x90, then the shellcode might be something like "90" (not 0x90).
+So we would extract out the entire hex blob manually till the end of it, and saving it as proper shellcode (sometimes we can save all of it directly in a hex editor so that e.g. "90" becomes 0x90, but sometimes we may have to use something like hex2bin).
+From there, we open up the shellcode in IDA and convert the "data" to code ("C" shortcut).
+
+The only thing stopping our analysis will be if IDA (i.e. you) did not line up the bytes correctly and it started its linear disassembly from the wrong byte.
+If this happens, we need to undefine ("U") the blob and convert to code ("C") again starting from the next offset (if you can recognize where the analysis should start, great, but otherwise one way is you can even just undefine, move down 1 byte and check, and just keep repeating a few times until you find the correct byte to start from).
+
+Same thing for unicode (e.g. if HTML) etc, although of course the formatting will have to be changed.
