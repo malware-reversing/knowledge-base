@@ -1,0 +1,32 @@
+Sample hash: 304115CEF6CC7B81F4409178CD0BCEA2B22FD68CA18DFD5432C623CBBB507154
+
+Suppose we have a function which has function arguments which were incorrectly recognized by IDA (mostly because of hand-written ASM).
+
+What the function does doesn't matter, but recognizing it is easy:
+---
+.text:1001711C             sub_1001711C    proc near               ; CODE XREF: sub_100035D8+5↑p
+.text:1001711C                                                     ; sub_10003729+5↑p ...
+.text:1001711C 6A FF                       push    0FFFFFFFFh
+.text:1001711E 50                          push    eax
+...
+---
+In this example, we see that the function pushes eax without any prior input into eax. This means eax was set before this function.
+Thus, eax is either a global variable, junk, or a function argument.
+Here, it is a function argument.
+
+The function call looks like:
+sub_1001711C();
+---
+And the function type looks like:
+void sub_1001711C()
+
+If we want to fix it, we right click on the function and select "Set Type" (i.e. press "Y"), then change the type to:
+void __usercall call_eax_sub_1001711C(int *returnAddress@<eax>)
+
+The function call becomes:
+call_eax_sub_1001711C((int *)sub_1001773C);
+---
+And the function type becomes:
+void __usercall call_eax_sub_1001711C(int *returnAddress@<eax>)
+
+Now, we see the proper function argument within the function and from external calls to the function.
