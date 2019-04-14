@@ -1,0 +1,19 @@
+Instead of renaming variables in the disassembly, one cleaner way we can do things (in certain scenarios) is to make use of structures.
+Create structure (structures, insert), set type as array, set size as some arbitrary (large, e.g. 200) number (when we don't know the actual size or don't care), and make sure "Items on a line" and "Element print width" are both set to 0 (not the default).
+The structure modification process doesn't exactly work as smoothly as we want to, so basically we might have to be modifying the size constantly (the first step doesn't actually solve our size issue).
+Press "d" (shortcut for Edit->Data) at the end of the array to insert new fields or press "d" at an offset e.g. 0x30 to initialize the field there. This can also be used to change structure fields from db->dw->dd->db.
+So now we can insert new fields and modify the structure size. This means we can create a new structure, set the structure size to some large number, and set structure fields to be at a particular offset (e.g. "00000034 field_34 dw ?"). This is all we need.
+
+Now suppose our structure has a field at offset 0x30, we can now go into the disassembler:
+    .text:100034BD mov     edx, fs:[edx+30h]
+Right click the "30h" and we can select "structure offset"->dword ptr fs:[edx+struct_1.field_30]
+
+There's also a very arcane trick we can do when the structure field offset does not match the disassembler offset (e.g. eax+edx+30) and edx is another offset. In that case, our normal scenario does not work.
+We can use a simple example to illustrate this. In our structure, we create another field at 0x2F.
+In our disassembler, we see the same thing as before:
+    .text:100034BD mov     edx, fs:[edx+30h]
+Now instead of right clicking on "30h", we HIGHLIGHT "edx+30h" and press "T" (structure offset). Now a different kind of window appears.
+We can select offset "-0x01" and we will see the "struct_1" structure we created is available for use. We select that, and our disassembler becomes:
+    .text:100034BD mov     edx, dword ptr fs:[edx+(struc_1.field_2F+1)]
+
+Some notes about structures: Keep an extra byte at the end, then changing variable lengths in the structure will not change the structure size.
