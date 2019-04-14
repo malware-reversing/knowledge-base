@@ -1,0 +1,46 @@
+The most common IDA structure I've seen seems to be the PEB, when the malware accesses the PEB to eventually get the list of loaded modules and then figure out the function addresses from it.
+Theres 3 steps to performing this - 1) loading the type library required by the structure (if not already loaded), 2) creating the structure, and 3) using the proper structure in the disassembly.
+
+1) Loading the type library
+View -> Open subview -> Type libraries -> Load type library -> ntapi
+This type library is used for Windows internals stuff and seems to be the main important type library that isn't loaded automatically by IDA.
+Structures related to the PEB etc are all related to ntapi.
+
+2) Creating the structures
+View -> Open subview -> structures -> Insert -> Add standard structure -> <structure_name>
+Examples: "PEB", "PEB_LDR_DATA", "IMAGE_DOS_HEADER", "IMAGE_NT_HEADERS", "IMAGE_EXPORT_DIRECTORY"
+
+3) Using the structures in the disassembler (right click on the offset and select the appropriate structure)
+---
+https://www.aldeid.com/wiki/PEB-Process-Environment-Block
+.text:100034C1                 mov     edx, [edx+0Ch]
+becomes
+.text:100034C1                 mov     edx, [edx+PEB.Ldr]
+---
+https://www.aldeid.com/wiki/PEB_LDR_DATA (edx contains PEB.Ldr from prior instruction)
+.text:100034C4                 mov     edx, [edx+14h]
+becomes
+.text:100034C4                 mov     edx, [edx+PEB_LDR_DATA.InMemoryOrderModuleList.Flink]
+---
+The InMemoryOrderModuleList points to a LDR_DATA_TABLE_ENTRY structure
+https://www.aldeid.com/wiki/LDR_DATA_TABLE_ENTRY
+.text:100034C7                 mov     esi, [edx+28h]
+becomes
+.text:100034C7 8B 72 28                    mov     esi, [edx+LDR_DATA_TABLE_ENTRY.FullDllName.Buffer]
+>but when we look at the LDR_DATA_TABLE_ENTRY structure, we see this is actually wrong and seems to be a bug in IDA.
+>edx+28h should refer to BaseDllName, not FullDllName
+>A couple of different ways to solve this, but the easiest is to just highlight "edx+28h" (we can press "T" to revert the structure back to a non-structure), then press "T".
+>We can select the offset to be 0x4, and select the structure as "LDR_DATA_TABLE_ENTRY". Now our disassembly becomes:
+.text:100034C7 8B 72 28                    mov     esi, dword ptr [edx+(LDR_DATA_TABLE_ENTRY.BaseDllName.Length-4)]
+---
+In another example, there is a pointer to the IMAGE_DOS_HEADER as the malware wants to check for "MZ" magic bytes
+.text:10003503 66 39 01                    cmp     [ecx], ax
+Even without an offset (actually it is offset 0), we can set the structure to become:
+.text:10003503 66 39 01                    cmp     [ecx+IMAGE_DOS_HEADER.e_magic], ax
+---
+ Note that we can do the same thing in the decompiler
+ if ( *(_WORD *)a1 != 'ZM' )
+ Right click a1 and convert it to a structure "IMAGE_DOS_HEADER", and suddenly we start to see things such as:
+ if ( a1->e_magic != 'ZM' )
+ if ( !*(LONG *)((char *)&a1[1].e_lfanew + v3) )
+ 
