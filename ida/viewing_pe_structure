@@ -1,0 +1,4 @@
+By default IDA starts its analysis from the code section, meaning we don't get to see the PE structure in the disassembler or hex view.
+When we open the file, we can select Load->Manual load and agree with the defaults. This will allow us to view the PE structure.
+
+Benefit of this is when we want to do scripting with values related to the PE structure, we can see them in IDA (although my guess is we can probably access them via scripting either way).
