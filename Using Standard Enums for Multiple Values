@@ -1,0 +1,5 @@
+When setting enums in IDA for values such as CreateFile(x, 0x80000000, x, x, x, x, x), we can set the enum to GENERIC_READ easily.
+But when we have something such as CreateFile(x, 0xC0000000, x, x, x, x, x), which is actually GENERIC_WRITE|GENERIC_READ (0x80000000+0x40000000), we can't select that in the enum list.
+
+Finally, I figured out that if we have added a MACRO_GENERIC enum before (e.g. by setting a value to GENERIC_READ), then when we try to set an enum for 0xC0000000 instead of choosing a new enum we can actually choose MACRO_GENERIC or MACRO_OPEN, and the enum will automatically be set to GENERIC_WRITE|GENERIC_READ.
+In the same way, we could probably insert some enum related to MACRO_GENERIC in the enumerations list and we should then be able to do the same thing.
