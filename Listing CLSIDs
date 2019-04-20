@@ -1,0 +1,4 @@
+Source: https://superuser.com/questions/657511/where-to-get-software-name-of-clsid
+HKEY_CLASSES_ROOT\CLSID\{xxx}
+
+Under the key (if any), the registry will show the name of the key to say what it is referring to. The subkey will also show the filepath of that executable file.
