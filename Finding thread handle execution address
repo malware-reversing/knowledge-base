@@ -1,0 +1,8 @@
+A few times while debugging malware, I see process injection and then the usual kernel32 ResumeThread after malware injected code into another process.
+But sometimes the injected code is not easily available to be dumped from the malware process, so you dump it from the injected process instead.
+Something that I always wondered about was "which exact address is the thread getting resumed at?". Because while debugging all you get is the thread handle.
+
+So going in our debugger, we see e.g. ResumeThread(0x120). In Process Hacker -> Process Properties -> Handles, we can see Thread xxx.exe (xxx): xxx with a handle value of 0x120.
+Right click that -> Go to thread -> We see that particular thread (matching thread IDs) with a start address of xxx.exe+0xXXX.
+Not exactly the "current address" (I presume) in all situations, but if the process was started in suspended mode that is basically the address it resumes at.
+I attach to the injected process and check where that address is - exactly the same as the process entry point. To be expected I guess, but nice to confirm it.
