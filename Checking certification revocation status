@@ -1,0 +1,6 @@
+Windows -> Right click -> Properties -> Digital signatures -> Details -> View Certificate -> Details -> CRL Distribution Point
+Access the distribution point to download the respective CRL file
+Parse the file using openssl: "openssl crl -inform DER -text -noout -in xxx.crl"
+Compare the file's certificate serial number against the CRL list of revoked serial numbers to check if revoked.
+
+Newer method seems to be using OCSP, but this way works fine and seems easier at least for file-based certificates.
