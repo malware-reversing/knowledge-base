@@ -1,0 +1,22 @@
+PDNS Time
+
+Domain register/update date
+
+Domain/IP usage/update times
+
+Timestamp of dropper (e.g. compile/debug/export/resource)
+Timestamp of in-memory payload (e.g. compile/debug/export/resource)
+Timestamp of wrapper/packer (e.g. compile/debug/export/resource)
+Timestamp of other artifacts related to sample
+
+Exploit document last saved/modified time
+
+Decoy document last saved/modified time
+
+Date sample was first seen in the wild
+
+PDB
+
+Attacker campaign code
+
+Compiler / RICH header version released date
