@@ -1,0 +1,3 @@
+We can easily change to the sha256 rich function by modifying:
+1) (2 occurances) parseRich.py --- hashlib.md5() ---> hashlib.sha256()
+2) YARA --- hash.md5(pe.rich_signature.clear_data) == "xxx" ---> hash.sha256(pe.rich_signature.clear_data) == "xxx"
