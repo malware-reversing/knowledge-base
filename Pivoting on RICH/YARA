@@ -1,0 +1,16 @@
+Using python 2
+--
+python2 parseRich.py abc.exe
+-> "Rich Hashes": {"Rich Hash": "xxx", "Rich PV": "yyy"}}
+---
+
+import "hash"
+import "pe"
+
+rule RichHash_example
+{
+  meta:
+    description ="Matches a Rich Hash (example)"
+  condition:
+    hash.md5(pe.rich_signature.clear_data) == "xxx"
+}
