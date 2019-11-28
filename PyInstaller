@@ -1,0 +1,8 @@
+Multiple python files (python scripts, compiled python, compiled python dlls, etc) can be packaged into a single PyInstaller executable.
+Easy way to recognize is that the files created will be all python files (.pyc, .pyd, etc) and created in %TEMP%\_meixxxxx\ (random number, see https://pythonhosted.org/PyInstaller/operating-mode.html).
+The PyInstaller install files are actually compressed in the PE overlay, together with the file names of the install files.
+
+But Countercept actually glued together a decompiler from various tools (https://github.com/countercept/python-exe-unpacker) which can easily decompile the PyInstaller.
+From there, the main file (the file which has an install manifest, no file extension, and probably same name as the PyInstaller file) contains the main compiled python code.
+This compiled python code (together with the other .pyc files) are likely to be missing some headers (first 8 bytes), so just copy the first 8 bytes from another .pyc file in the "extracted" folder which the unpacker created into the main file. (see https://www.youtube.com/watch?v=x8OtmBoCyw4)
+From there, we can use a normal python decompiler such as "Easy Python Decompiler" (https://github.com/aliansi/Easy-Python-Decompiler-v1.3.2) to decompile the .pyc code (may have to add .pyc extension to the main file).
