@@ -1,0 +1,8 @@
+Now and then on VTI, there will be non-ascii filenames such as such as:
+---hash: bac948d52dbee70174aabca573745028e1ef8f2eef65c46c220a445ee7a9329a
+---filename: "=?UTF-8?B?QuG6o25nIHRo4buRbmcga8OqIHPhu5EgbMaw4bujbmcgdsOgIG5odSBj4bqndSBuw6JuZyBuZ+G6oWNoIGPDtG5nIGNo4bupYy54bHM=?=".
+
+These file names can actually be fully decoded. Remove the starting "=?UTF-8?B?" and ending "?=", then base64 it.
+In the above case, we end up with "Bảng thống kê số lượng và nhu cầu nâng ngạch công chức.xls".
+
+If the document content has nothing useful, then the filename can hint toward the country/language or even sector being targeted.
