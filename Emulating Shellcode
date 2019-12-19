@@ -1,0 +1,13 @@
+Pivoted on a PDB from a khRAT sample d36053ba10b392b30af087d4129644fda821a3f4b9b812796e97d72586c26b37
+Seemed different but good for testing shellcode emulation anyway
+"scdbg /f sample.exe /foff 0x11710"
+
+Performing this emulation using scdbg allowed us to quickly check out the C2 IP and port
+If we checked out the executable, we see that it:
+---memcpy's shellcode into a variable
+---creates heap, allocates heap
+---qmemcpy the shellcode onto the heap
+---runs the shellcode
+
+So we know the address of the shellcode in IDA but IDA shows the virtual address of the shellcode whereas we need the file offset to run the scdbg emulator using the /foff parameter (or at least I don't know how else).
+In order to find the file offset quickly, the lame but reliable way I use is not to convert the addressing but rather just search for the shellcode opcodes in a hex editor and get the file offset.
