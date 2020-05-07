@@ -1,0 +1,5 @@
+5d285449230daa8cff167287a4d10fa4f25eea26b1673b8152c2bdb840e658d3 / https://drive.google.com/file/d/1cXHTHH1S90RCqWYnFOSp1rtYmURecQVm/view (from https://www.youtube.com/watch?v=5pFD1jPq22U)
+ConfuserEx-Unpacker.exe <hash>, de4dot <hash>
+Seems to do a good job of unpacking default ConfuserEx
+
+There's also some ways to manually iterate over debug+dump+edit_il+debug+dump etc, but it didn't work on the sample I tried.
