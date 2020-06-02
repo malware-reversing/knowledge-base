@@ -1,3 +1,7 @@
 We can easily change to the sha256 rich function by modifying:
 1) (2 occurances) parseRich.py --- hashlib.md5() ---> hashlib.sha256()
 2) YARA --- hash.md5(pe.rich_signature.clear_data) == "xxx" ---> hash.sha256(pe.rich_signature.clear_data) == "xxx"
+
+Can do instant RICH search on VTI:
+https://twitter.com/a_tweeter_user/status/1258497968598069252
+In PE-Bear RICH header, copy hex section from Dans ID to end of the last Comp ID (total 176 bytes) and content search!
