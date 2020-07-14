@@ -1,0 +1,18 @@
+PowerShell Command (HTTPS Listener)
+---
+powershell -nop -w hidden -encodedcommand <xxx>
+where <xxx> is a long base64 string
+We can basically decode the entire thing in CyberChef
+-base64 decode the base64 string
+-remove null bytes (unicode)
+-pull out the base64 (regex: [0-za-bA-Z+/]{40,})
+---use list matches instead of the default highlight matches to pull out the string
+-base64 decode the base64 string
+-gunzip
+-pull out the base64 (regex: [0-za-bA-Z+/]{40,})
+-base64 decode the base64 string
+***at this point we have a powershell script (as usual). we see $var_code is a base64 string which needs to be decoded, then there is a for loop with "$var_code[$x] = $var_code[$x] -bxor 35"
+******so for this CS version, the xor byte which is used is 35 (0x23)
+-xor 35
+-to hex: this is the shellcode (the c2 is actually visible as text near the end)
+-scdbg does not work on this shellcode, there's a byte near the start which scdbg does not support
