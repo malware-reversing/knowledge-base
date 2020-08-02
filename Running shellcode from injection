@@ -1,0 +1,7 @@
+A lame way to inject shellcode into a file without requiring external tools besides CFF
+
+CFF -> Section Headers -> Add Section (File Data) -> Select shellcode file
+Modify header characteristics to equal .text so it's runnable
+Optional Header -> DllCharacteristics -> DLL can remove -> Uncheck
+Optional Header -> AddressOfEntryPoint -> Set to Virtual Address of created Section Header
+Now we've "backdoored" the executable to just run our shellcode so we don't even need to inject it to analyze
