@@ -5,3 +5,4 @@ We can easily change to the sha256 rich function by modifying:
 Can do instant RICH search on VTI:
 https://twitter.com/a_tweeter_user/status/1258497968598069252
 In PE-Bear RICH header, copy hex section from Dans ID to end of the last Comp ID (total 176 bytes) and content search!
+Example: PE Bear Dans ID Value = e732a0f, Comp ID value = "5d1d4b4a5dd1a52d" then the RICH value will be content:{0f 2a 37 0e......1d 5d}
