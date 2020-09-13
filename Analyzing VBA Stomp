@@ -2,3 +2,7 @@ pip install -U oletools (https://github.com/decalage2/oletools)
 olevba file.xls
 VBA Stomped code is detected and shown as well
 If output is too long, pipe it or if pipe has encoding errors, simply change Command Prompt buffer settings: Right Click -> Properties -> Buffer Size=999
+
+We can also see decompiled p-code which is even better than seeing ugly p-code using https://github.com/Big5-sec/pcode2code
+pip install pcode2code -U
+pcode2code file.xls
