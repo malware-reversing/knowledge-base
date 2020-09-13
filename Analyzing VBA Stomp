@@ -1,0 +1,4 @@
+pip install -U oletools (https://github.com/decalage2/oletools)
+olevba file.xls
+VBA Stomped code is detected and shown as well
+If output is too long, pipe it or if pipe has encoding errors, simply change Command Prompt buffer settings: Right Click -> Properties -> Buffer Size=999
