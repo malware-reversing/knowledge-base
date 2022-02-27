@@ -1,0 +1,4 @@
+Viewing Office macro
+---
+File -> Options -> Customize Ribbon -> Tick the Developer option
+Developer -> Visual Basic -> Now we're seeing the macro in the VBA without needing to enable content
