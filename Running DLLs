@@ -11,6 +11,8 @@ What we will need to do is manually run the _CRT_INIT function in the DLL first 
 -> BOOL WINAPI _CRT_INIT(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);
 ---> Exactly how this is done, did not try yet. Example hash: 13dbac9d270330f4e4ae8a1407c9531ded31d243878339532288905e0e4e56b5
 ---> But it should be: hInstDll is just the address of the DLL (which is now an EXE), then we use a standard fdwReason, and not sure about lpReserved.
+---
+Confirmed we could e.g. run the ___acrt_initialize_heap() function manually and the heap works fine. But not sure how that function is getting called in the first place, perhaps through thread local storage.
 
 # Run using rundll32.exe in IDA
 Run as administrator (because it needs access system directory) ida.exe if your DLL is 32 bit, and ida64.exe is 64 bit.
